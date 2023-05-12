@@ -12,7 +12,16 @@ Symfony server:start
 #[Route('/', 'home.index', methods: ['GET'])]
 
 // Constraints
-
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[Assert\NotBlank]
+
+// Fixtures
+composer require --dev orm-fixtures
+
+//Faker PHP
+composer require fakerphp/faker --dev
+
+//KNP Paginator
+composer require knplabs/knp-paginator-bundle
++ config yml
