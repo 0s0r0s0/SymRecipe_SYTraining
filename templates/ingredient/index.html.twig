@@ -6,6 +6,8 @@
     <div class="container">
         <h1>Mes ingrédients</h1>
 
+        <a href="{{ path('ingredient_new') }}" class="btn btn-primary">Créer un ingrédient</a>
+
         {% for message in app.flashes('success') %}
             <div class="alert alert-success">
                 {{ message }}

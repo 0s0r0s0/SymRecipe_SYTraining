@@ -64,4 +64,29 @@ class IngredientController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    #[Route('/ingredient/edit/{id}', name: 'ingredient_edit', methods: ['GET', 'POST'])]
+    public function edit(Ingredient $ingredient, Request $request, EntityManagerInterface $manager): Response
+    {
+        $form = $this->createForm(IngredientType::class, $ingredient);
+
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $ingredient = $form->getData();
+
+            $manager->persist($ingredient);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'Votre ingrédient a bien été modifié !'
+            );
+
+            return $this->redirectToRoute('ingredient');
+        }
+
+        return $this->render('ingredient/edit.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
 }

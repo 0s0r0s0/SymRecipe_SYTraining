@@ -47,3 +47,16 @@ composer require knplabs/knp-paginator-bundle
 ** Rediriger
     $this->redirectToRoute('ingredient');
 
+//Messages flash
+** Créer flash
+    $this->addFlash(
+        'success',
+        'Votre ingrédient a bien été enregistré !'
+    );
+
+** Afficher
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
