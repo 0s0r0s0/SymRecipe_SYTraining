@@ -93,14 +93,6 @@ class IngredientController extends AbstractController
     #[Route('/ingredient/delete/{id}', name: 'ingredient_delete', methods: ['GET'])]
     public function delete(Ingredient $ingredient, EntityManagerInterface $manager): Response
     {
-        if (!$ingredient) {
-            $this->addFlash(
-                'success',
-                'L\'ingrédient n\'a pas été trouvé !'
-            );
-
-            return $this->redirectToRoute('ingredient');
-        }
 
         $manager->remove($ingredient);
         $manager->flush();
