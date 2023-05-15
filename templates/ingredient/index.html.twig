@@ -6,6 +6,12 @@
     <div class="container">
         <h1>Mes ingrédients</h1>
 
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
         {% if not ingredients.items is same as([])  %}
             <div class="count">
             <h5>{{ ingredients.getTotalItemCount }} ingrédients au total</h5>

@@ -25,3 +25,25 @@ composer require fakerphp/faker --dev
 //KNP Paginator
 composer require knplabs/knp-paginator-bundle
 + config yml
+
+//FORM
+** Créer instance object
+    $ingredient = new Ingredient();
+
+** Créer form à partir du FormType
+    $form = $this->createForm(IngredientType::class, $ingredient);
+
+** Récupèrer la requête
+    $form->handleRequest($request);
+
+** Tester contenu du formulaire
+    if($form->isSubmitted() && $form->isValid()) {
+        $ingredient = $form->getData();
+
+ ** Persist et Flush (comme commit et push)
+    $manager->persist($ingredient);
+    $manager->flush();
+
+** Rediriger
+    $this->redirectToRoute('ingredient');
+
