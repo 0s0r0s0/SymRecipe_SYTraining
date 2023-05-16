@@ -5,6 +5,9 @@
 {% block body %}
     <h1>Recette index</h1>
 
+    <a href="{{ path('recette_new') }}" class="btn btn-primary">Nouvelle recette</a>
+
+
     <table class="table">
         <thead>
             <tr>
@@ -29,7 +32,7 @@
                 <td>{{ recette.time }}</td>
                 <td>{{ recette.people }}</td>
                 <td>{{ recette.description }}</td>
-                <td>{{ recette.price }}</td>
+                <td>{{ recette.price is null ? 'Aucun' : recette.price}}</td>
                 <td>{{ recette.createdAt ? recette.createdAt|date('Y-m-d') : '' }}</td>
                 <td>{{ recette.updatedAt ? recette.updatedAt|date('Y-m-d') : '' }}</td>
                 <td>{{ recette.difficulty }}</td>
@@ -47,5 +50,8 @@
         </tbody>
     </table>
 
-    <a href="{{ path('recette_new') }}">Create new</a>
+    <div class="navigation d-flex justify-content-center">
+        {{ knp_pagination_render(recettes) }}
+    </div>
+
 {% endblock %}

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Recette;
 use App\Form\RecetteType;
 use App\Repository\RecetteRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,10 +15,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class RecetteController extends AbstractController
 {
     #[Route('/', name: 'recette_index', methods: ['GET'])]
-    public function index(RecetteRepository $recetteRepository): Response
+    public function index(RecetteRepository $recetteRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $recettes = $paginator->paginate(
+            $recetteRepository->findAll(),
+            $request->query->getInt('page', 1),
+            10
+        );
+
         return $this->render('recette/index.html.twig', [
-            'recettes' => $recetteRepository->findAll(),
+            'recettes' => $recettes,
         ]);
     }
 
@@ -31,7 +38,7 @@ class RecetteController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $recetteRepository->save($recette, true);
 
-            return $this->redirectToRoute('app_recette_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('recette_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('recette/new.html.twig', [
@@ -57,7 +64,7 @@ class RecetteController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $recetteRepository->save($recette, true);
 
-            return $this->redirectToRoute('app_recette_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('recette_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('recette/edit.html.twig', [
@@ -73,6 +80,6 @@ class RecetteController extends AbstractController
             $recetteRepository->remove($recette, true);
         }
 
-        return $this->redirectToRoute('app_recette_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('recette_index', [], Response::HTTP_SEE_OTHER);
     }
 }

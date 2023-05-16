@@ -3,11 +3,11 @@
 namespace App\Entity;
 
 use App\Repository\RecetteRepository;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use JetBrains\PhpStorm\Pure;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -28,7 +28,7 @@ class Recette
     private ?string $name = null;
 
     #[ORM\Column(nullable: true)]
-    #[Assert\Length(min: 1, max: 360)]
+    #[Assert\Length(min: 1, max: 1440)]
     private ?int $time = null;
 
     #[ORM\Column(nullable: true)]
@@ -43,10 +43,10 @@ class Recette
     private ?float $price = null;
 
     #[ORM\Column(type: 'date_immutable')]
-    private ?\DateTimeImmutable $createdAt = null;
+    private ?DateTimeImmutable $createdAt = null;
 
     #[ORM\Column(type: 'date_immutable')]
-    private ?\DateTimeImmutable $updatedAt = null;
+    private ?DateTimeImmutable $updatedAt = null;
 
     #[ORM\Column(nullable: true)]
     #[Assert\Length(min: 1, max: 6)]
@@ -55,20 +55,20 @@ class Recette
     #[ORM\Column]
     private ?bool $isFavorite = null;
 
-    #[ORM\ManyToMany(targetEntity: ingredient::class)]
+    #[ORM\ManyToMany(targetEntity: Ingredient::class)]
     private Collection $ingredients;
 
     public function __construct()
     {
         $this->ingredients = new ArrayCollection();
-        $this->createdAt = new \DateTimeImmutable();
-        $this->updatedAt = new \DateTimeImmutable();
+        $this->createdAt = new DateTimeImmutable();
+        $this->updatedAt = new DateTimeImmutable();
     }
 
     #[ORM\PrePersist]
     public function setUpdatedAtValue()
     {
-        $this->updatedAt = new \DateTimeImmutable();
+        $this->updatedAt = new DateTimeImmutable();
 
     }
 
@@ -137,24 +137,24 @@ class Recette
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?DateTimeImmutable
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    public function setCreatedAt(DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeImmutable
+    public function getUpdatedAt(): ?DateTimeImmutable
     {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
+    public function setUpdatedAt(DateTimeImmutable $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 
