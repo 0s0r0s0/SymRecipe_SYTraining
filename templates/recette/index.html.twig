@@ -1,9 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Recette index{% endblock %}
+{% block title %}Recettes{% endblock %}
 
 {% block body %}
-    <h1>Recette index</h1>
+    <h1>Les recettes</h1>
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
 
     <a href="{{ path('recette_new') }}" class="btn btn-primary">Nouvelle recette</a>
 
@@ -11,17 +17,17 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Time</th>
-                <th>People</th>
+                <th>Numéro</th>
+                <th>Nom</th>
+                <th>Durée</th>
+                <th>Nb de personne</th>
                 <th>Description</th>
-                <th>Price</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
-                <th>Difficulty</th>
-                <th>IsFavorite</th>
-                <th>actions</th>
+                <th>Prix</th>
+                <th>Date de création</th>
+                <th>Date de modification</th>
+                <th>Difficulté</th>
+                <th>Favori ?</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -38,13 +44,13 @@
                 <td>{{ recette.difficulty }}</td>
                 <td>{{ recette.isFavorite ? 'Yes' : 'No' }}</td>
                 <td>
-                    <a href="{{ path('app_recette_show', {'id': recette.id}) }}">show</a>
-                    <a href="{{ path('app_recette_edit', {'id': recette.id}) }}">edit</a>
+                    <a href="{{ path('app_recette_show', {'id': recette.id}) }}">Voir</a>
+                    <a href="{{ path('app_recette_edit', {'id': recette.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="11">no records found</td>
+                <td colspan="11">Aucune recette enregistrée</td>
             </tr>
         {% endfor %}
         </tbody>

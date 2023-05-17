@@ -44,6 +44,7 @@ class RecetteType extends AbstractType
                     'max' => 1440
                 ],
                 'label' => 'Temps (en minutes)',
+                'required' => false,
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
@@ -64,6 +65,7 @@ class RecetteType extends AbstractType
             'min' => 1,
             'max' => 50
         ],
+        'required' => false,
         'constraints' => [
             new Assert\Positive(),
             new Assert\LessThan(51)
@@ -106,6 +108,7 @@ class RecetteType extends AbstractType
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
+                'required' => false,
                 'constraints' => [
                     new Assert\Positive(),
                     new Assert\LessThan(6)
@@ -113,18 +116,18 @@ class RecetteType extends AbstractType
             ])
             ->add('isFavorite', CheckboxType::class, [
                 'attr' => [
-                    'class' => 'form-control',
+                    'class' => 'form-check-input',
                 ],
                 'label' => 'Favori ?',
                 'label_attr' => [
-                    'class' => 'form-label mt-4'
+                    'class' => 'form-check-label'
                 ],
                 'required' => false
                 ])
             ->add('ingredients', EntityType::class, [
                 'label' => 'Ingredients',
                 'label_attr' => [
-                    'class' => 'form-label mt-4'
+                    'class' => 'form-label'
                 ],
                 'class' => Ingredient::class,
                 'choice_label' => 'name',

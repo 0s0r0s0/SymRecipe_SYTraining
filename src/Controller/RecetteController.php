@@ -38,6 +38,11 @@ class RecetteController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $recetteRepository->save($recette, true);
 
+            $this->addFlash(
+                'success',
+                'Recette créée avec succès !'
+            );
+
             return $this->redirectToRoute('recette_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -63,6 +68,11 @@ class RecetteController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $recetteRepository->save($recette, true);
+
+            $this->addFlash(
+                'success',
+                'Votre recette a bien été modifié !'
+            );
 
             return $this->redirectToRoute('recette_index', [], Response::HTTP_SEE_OTHER);
         }
